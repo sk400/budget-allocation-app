@@ -1,7 +1,7 @@
 import { useGlobalState } from "../context/context";
 
 const ExpenseTotal = () => {
-  const { expenses } = useGlobalState();
+  const { expenses, currency } = useGlobalState();
 
   const totalExpenses = expenses.reduce((total, item) => {
     return (total += parseInt(item.cost));
@@ -9,7 +9,10 @@ const ExpenseTotal = () => {
 
   return (
     <div className="alert alert-primary">
-      <span>Spent so far: £{totalExpenses}</span>
+      <span>
+        Spent so far: {currency.label}
+        {totalExpenses}
+      </span>
     </div>
   );
 };

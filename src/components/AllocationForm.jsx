@@ -17,7 +17,7 @@ const AllocationForm = () => {
   const handleSubmit = () => {
     if (department && allocationType && amount) {
       if (amount > remainingbudget) {
-        alert("This amount is more than remaining budget.");
+        alert("The value cannot exceed remaining funds " + remainingbudget);
       } else {
         if (allocationType === "Add") {
           increaseAllocation(department, amount);

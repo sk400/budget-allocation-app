@@ -33,7 +33,7 @@ const reducer = (state, action) => {
           expense.id === action.payload.id &&
           expense.cost - parseInt(action.payload.amount) >= 0
         ) {
-          expense.cost = expense.cost + parseInt(action.payload.amount);
+          expense.cost = expense.cost - parseInt(action.payload.amount);
         }
         return expense;
       });
@@ -50,6 +50,10 @@ const reducer = (state, action) => {
     case "SET_BUDGET": {
       return { ...state, budget: parseInt(action.payload) };
     }
+    case "SET_CURRENCY": {
+      return { ...state, currency: action.payload };
+    }
+
     default:
       return state;
   }
@@ -67,6 +71,10 @@ export const Provider = ({ children }) => {
       { id: "IT", name: "IT", cost: 40 },
       { id: "HR", name: "Human resource", cost: 40 },
     ],
+    currency: {
+      value: "Pound",
+      label: "£",
+    },
   };
 
   const [globalState, dispatch] = useReducer(reducer, initialState);
@@ -87,6 +95,10 @@ export const Provider = ({ children }) => {
         },
         setBudget: (budget) => {
           dispatch({ type: "SET_BUDGET", payload: budget });
+        },
+        currency: globalState.currency,
+        setCurrency: (currency) => {
+          dispatch({ type: "SET_CURRENCY", payload: currency });
         },
       }}
     >

@@ -3,7 +3,13 @@ import { TiDelete } from "react-icons/ti";
 import { useGlobalState } from "../context/context";
 
 const ExpenseList = () => {
-  const { expenses, increaseAllocation, deleteExpense } = useGlobalState();
+  const {
+    expenses,
+    increaseAllocation,
+    deleteExpense,
+    decreaseAllocation,
+    currency,
+  } = useGlobalState();
   return (
     <table className="table">
       <thead className="thead-light">
@@ -11,6 +17,7 @@ const ExpenseList = () => {
           <th scope="col">Department</th>
           <th scope="col">Allocated Budget</th>
           <th scope="col">Increase by 10</th>
+          <th scope="col">Decrease by 10</th>
           <th scope="col">Delete</th>
         </tr>
       </thead>
@@ -18,7 +25,10 @@ const ExpenseList = () => {
         {expenses.map((expense) => (
           <tr key={expense.id}>
             <td>{expense.name}</td>
-            <td>£{expense.cost}</td>
+            <td>
+              {currency.label}
+              {expense.cost}
+            </td>
             <td>
               <button
                 onClick={(e) => {
@@ -27,6 +37,16 @@ const ExpenseList = () => {
                 }}
               >
                 +
+              </button>
+            </td>
+            <td>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  decreaseAllocation(expense.id, 10);
+                }}
+              >
+                -
               </button>
             </td>
             <td>

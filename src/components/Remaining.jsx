@@ -2,7 +2,7 @@ import React from "react";
 import { useGlobalState } from "../context/context";
 
 const Remaining = () => {
-  const { expenses, budget } = useGlobalState();
+  const { expenses, budget, currency } = useGlobalState();
 
   const totalExpenses = expenses.reduce((total, item) => {
     return (total += parseInt(item.cost));
@@ -14,7 +14,10 @@ const Remaining = () => {
 
   return (
     <div className={`alert ${alertType} `}>
-      <span>Remaining: £{remainingbudget}</span>
+      <span>
+        Remaining: {currency.label}
+        {remainingbudget}
+      </span>
     </div>
   );
 };
